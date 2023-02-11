@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import * as dat from 'dat.gui'
 
 const renderer = new THREE.WebGLRenderer()
 
@@ -44,6 +45,31 @@ plane.rotation.x = -0.5 * Math.PI
 
 const gridHelper = new THREE.GridHelper(30)
 scene.add(gridHelper)
+
+// SET SPHERE
+const sphereGeometry = new THREE.SphereGeometry(4, 50, 50)
+const sphereMaterial = new THREE.MeshBasicMaterial({
+  color: 0x0000FF,
+  wireframe: false
+})
+const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
+scene.add(sphere)
+sphere.position.set(-10, 10, 0)
+
+const gui = new dat.GUI()
+
+const options = {
+  sphereColor: '#ffea00',
+  wireframe: false
+}
+
+gui.addColor(options, 'sphereColor').onChange(function(e){
+  sphere.material.color.set(e)
+})
+
+gui.add(options, 'wireframe').onChange(function(e){
+  sphere.material.wireframe = e
+})
 
 function animate(time) {
   box.rotation.x = time / 1000
