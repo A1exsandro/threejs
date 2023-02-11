@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { BoxGeometry } from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 const renderer = new THREE.WebGLRenderer()
 
@@ -17,10 +17,14 @@ const camera = new THREE.PerspectiveCamera(
   1000
 )
 
+// ORBITCONTROLS
+const orbit = new OrbitControls(camera, renderer.domElement)
+
 const axesHelper = new THREE.AxesHelper(5)
 scene.add(axesHelper)
 
 camera.position.set(0, 2, 5)
+orbit.update()
 
 // SET BOX
 const boxGeometry = new THREE.BoxGeometry()
