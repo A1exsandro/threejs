@@ -73,22 +73,26 @@ gui.add(options, 'wireframe').onChange(function(e){
 
 ////////////////////////////// LOOP////////////////////////////////////
 function createPlane() {
-  var planeGeometry = new THREE.PlaneGeometry(30, 30, 1, 1);
-  var planeMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, side: THREE.DoubleSide});
+  var planeGeometry = new THREE.PlaneGeometry(30, 190, 1, 1);
+  var planeMaterial = new THREE.MeshBasicMaterial({color: 0xffff00, side: THREE.DoubleSide});
   var planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
   planeMesh.rotation.x = -0.5 * Math.PI
+  // planeMesh.translateY(-20)
   scene.add(planeMesh);
   return planeMesh;
 }
-const currentPlane = createPlane()
+var currentPlane = createPlane()
+console.log(currentPlane.position.y)
 
 function movePlane() {
-  currentPlane.translateY(-0.1); // move o plano para trás
-  if (currentPlane.position.z < -100) { // verifica se o plano saiu da visão
+   currentPlane.translateY(-0.6)// move o plano para trás
+   console.log(currentPlane.position.y)
+  if (currentPlane.position.y < -0.000000000000004440892098500626) { // verifica se o plano saiu da visão
     scene.remove(currentPlane); // remove o plano da cena
     currentPlane = createPlane(); // cria um novo plano
   }
 }
+
 //////////////////////////END//////////////////////////////////////////
 
 function animate(time) {
@@ -100,4 +104,4 @@ function animate(time) {
   renderer.render(scene, camera)
 }
 
-renderer.setAnimationLoop(animate)
+renderer.setAnimationLoop(animate) 
